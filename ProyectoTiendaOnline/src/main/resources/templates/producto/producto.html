@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Productos</title>
+	<link rel="stylesheet" th:href="@{/css/custom.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<!--google material icon-->
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+		integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{css/jquery.toast.css}">
+	<script th:src="@{js/jquery.toast.js}"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<div class="body-overlay"></div>
+		<!-- Sidebar  -->
+		<nav th:replace="templ :: nav-izquierdo"></nav>
+
+		<!-- Page Content  -->
+		<div id="content">
+			<div th:replace="templ :: nav-azul"></div>
+			<div class="main-content">
+				<!--			inicio-->
+				<!--				fin -->
+				<div class="row ">
+					<div class=" col-md-12">
+						<div class="card" style="min-height: 485px">
+
+							<h3>Productos</h3>
+							<div class="alert alert-primary" role="alert" th:if="${mensaje}">
+								<p th:text="${mensaje}"></p>
+							</div>
+							<a th:href="@{/productoNuevo}" class="btn btn-success my-3">Nuevo producto</a>
+							<table class="table ">
+								<thead class="table-dark">
+									<tr>
+										<th>ID</th>
+										<th>Imagen</th>
+										<th>Nombre</th>
+										<th>Descripcion</th>
+										<th>Precio</th>
+										<th>Cantidad</th>
+										<th colspan="2">Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="pr : ${productos}">
+										<th th:text="${pr.id}"></th>
+										<th><img height="40px"
+												th:src="@{/assets/{filename}(filename=${pr.imagenRuta})}" /></th>
+										<th th:text="${pr.nombre}"></th>
+										<th th:text="${pr.descripcion}"></th>
+										<th th:text="${'S/.'+''+pr.precio}"></th>
+										<th th:text="${pr.cantidad}"></th>
+										<td>
+											<a th:href="@{/productoObtener/{id}(id=${pr.id})}"
+												class="btn btn-sm btn-warning">
+												Editar
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+	</div>
+
+
+	<div th:if="${mensaje != null}">
+		<script>
+			var mensaje = '[[${mensaje}]]';
+
+			$.toast({
+				heading: '<b>Mensaje</b>',
+				text: mensaje,
+				showHideTransition: 'slide',
+				hideAfter: 6000,
+				icon: 'success',
+				position: 'top-right'
+			})
+		</script>
+	</div>
+
+	<script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () {
+				$('#sidebar').toggleClass('active');
+				$('#content').toggleClass('active');
+			});
+
+			$('.more-button,.body-overlay').on('click', function () {
+				$('#sidebar,.body-overlay').toggleClass('show-nav');
+			});
+
+		});
+
+	</script>
+
+</body>
+
+</html>

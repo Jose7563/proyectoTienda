@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Insert Producto</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/validacion.css}">
+	<link rel="stylesheet" th:href="@{/css/custom.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<!--google material icon-->
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<div class="body-overlay"></div>
+		<!-- Sidebar  -->
+		<nav th:replace="templ :: nav-izquierdo"></nav>
+
+		<!-- Page Content  -->
+		<div id="content">
+			<div th:replace="templ :: nav-azul"></div>
+			<div class="main-content">
+				<!--			inicio-->
+
+
+				<!--				fin -->
+				<div class="container">
+
+					<div class=" col-md-6">
+						<div class="card" style="min-height: 485px">
+							<h3>Agregar Producto</h3>
+							<form id="form" th:action="@{/productoCrear}" th:object="${producto}" method="post"
+								enctype="multipart/form-data">
+								<div class="my-2">
+									<label class="form-label">Nombre</label>
+									<input id="nombre" type="text" th:field="*{nombre}" class="form-control" />
+									<p class="alert alert-warning mt-2" th:if="${#fields.hasErrors('nombre')}"
+										th:errors="*{nombre}"></p>
+								</div>
+								<div class="my-2">
+									<label class="form-label">Descripcion</label>
+									<input id="Descripcion" type="text" th:field="*{descripcion}"
+										class="form-control" />
+									<p class="alert alert-warning mt-2" th:if="${#fields.hasErrors('descripcion')}"
+										th:errors="*{descripcion}"></p>
+								</div>
+								<div class="my-2">
+									<label class="form-label">Cantidad</label>
+									<input id="cantidad" type="text" th:field="*{cantidad}" class="form-control" />
+									<p class="alert alert-warning mt-2" th:if="${#fields.hasErrors('cantidad')}"
+										th:errors="*{cantidad}"></p>
+								</div>
+								<div class="my-2">
+									<label class="form-label">Precio</label>
+									<input id="Precio" type="text" th:field="*{precio}" class="form-control" />
+									<p class="alert alert-warning mt-2" th:if="${#fields.hasErrors('precio')}"
+										th:errors="*{precio}"></p>
+								</div>
+								<div class="my-2">
+									<div><label class="form-label">Imagen</label></div>
+									<div class="row">
+										<div class="col-sm-12 text-center"><img src="/imagen/logo.png" id="imagenPreview" height="200"
+												width="200" /></div>
+										<div class="col-sm-12 text-center"><input id="imagen" type="file" name="imagen"
+												class="form-control" onchange="mostrar();" /></div>
+									</div>
+								</div>
+
+								<div class="my-2">
+									<label class="form-label">Categorias</label>
+
+									<select class="form-control" th:field="*{categoria.id}">
+										<option th:each="a :${categorias}" th:value="${a.id}" th:text="${a.nombre}">
+										</option>
+									</select>
+
+								</div>
+								<div class="my-2">
+									<label class="form-label">Marcas</label>
+
+									<select class="form-control" th:field="*{marca.id}">
+										<option th:each="marca :${marcas}" th:value="${marca.id}"
+											th:text="${marca.nombre}">
+										</option>
+									</select>
+
+								</div>
+								<p class="text-center mt-3">
+									<button type="submit" class="btn btn-success mx-3">Agregar</button>
+									<a th:href="@{/producto}" class="btn btn-secondary mx-3">Regresar</a>
+								</p>
+							</form>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+<script type="text/javascript">
+		function mostrar() {
+			var preview = document.getElementById('imagenPreview');
+			var file = document.querySelector('input[type=file]').files[0];
+			var leer = new FileReader();
+
+			if (file) {
+				leer.readAsDataURL(file);
+				leer.onloadend = function() {
+					preview.src = leer.result;
+				};
+			} else {
+				preview.src = "";
+			}
+		}
+	</script>
+
+
+	<script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () {
+				$('#sidebar').toggleClass('active');
+				$('#content').toggleClass('active');
+			});
+
+			$('.more-button,.body-overlay').on('click', function () {
+				$('#sidebar,.body-overlay').toggleClass('show-nav');
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>

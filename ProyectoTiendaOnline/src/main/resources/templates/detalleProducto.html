@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Detalle Producto</title>
+	<link rel="stylesheet" th:href="@{/css/detalleProducto.css}" />
+</head>
+
+<body>
+	
+	<div class="container-title" th:text="${'Categoria : '+ producto.categoria.nombre}"></div>
+
+	<main>
+		<div class="container-img">
+			<img th:src="@{/assets/{filename}(filename=${producto.imagenRuta})}" />
+		</div>
+
+
+		<div class="container-info-product">
+			<form th:action="@{/cart}" method="post">
+				<input type="hidden" th:value="${producto.id}" name="id">
+				<div class="container-price">
+					<span th:text="${'S/. '+producto.precio}">$95.00</span>
+					<i class="fa-solid fa-angle-right"></i>
+				</div>
+
+				<div class="container-details-product">
+					<div class="form-group">
+						<label>Nombre :</label>
+						<label th:text="${producto.nombre}"></label>
+					</div>
+					<div class="form-group">
+						<label>Categoria :</label>
+						<label th:text="${producto.categoria.nombre}"></label>
+					</div>
+					<div class="form-group">
+						<label>Marca :</label>
+						<label th:text="${producto.marca.nombre}"></label>
+
+					</div>
+				</div>
+
+				<div class="container-add-cart">
+					<div class="container-quantity">
+						<input type="number" name="cantidad" placeholder="1" value="1" min="1" class="input-quantity" />
+						<div class="btn-increment-decrement">
+							<i class="fa-solid fa-chevron-up" id="increment"></i>
+							<i class="fa-solid fa-chevron-down" id="decrement"></i>
+						</div>
+					</div>
+					<button class="btn-add-to-cart">
+						<i class="fa-solid fa-plus"></i>
+						Añadir al carrito
+					</button>
+				</div>
+			</form>
+			
+			<div class="container-description">
+				<div class="title-description">
+					<h4>Descripción</h4>
+					<i class="fa-solid fa-chevron-down"></i>
+				</div>
+				<div class="text-description">
+					<p th:text="${producto.descripcion}">
+
+					</p>
+				</div>
+			</div>
+
+			<div class="container-social">
+				<span>Compartir</span>
+				<div class="container-buttons-social">
+					<a href="#"><i class="fa-solid fa-envelope"></i></a>
+					<a href="#"><i class="fa-brands fa-facebook"></i></a>
+					<a href="#"><i class="fa-brands fa-twitter"></i></a>
+					<a href="#"><i class="fa-brands fa-instagram"></i></a>
+					<a href="#"><i class="fa-brands fa-pinterest"></i></a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<section class="container-related-products">
+		<h2>Productos Relacionados</h2>
+		<div class="card-list-products">
+			<div class="card" th:each="p : ${lista}">
+				<div class="card-img">
+					<a th:href="@{/verDetalle/{id}(id=${p.id})}"><img
+							th:src="@{/assets/{filename}(filename=${p.imagenRuta})}" /></a>
+				</div>
+				<div class="info-card">
+					<div class="text-product">
+						<h3 th:text="${p.nombre}"></h3>
+						<p class="category" th:text="${p.categoria.nombre}"></p>
+					</div>
+					<div class="price" th:text="${'S/. '+p.precio}">$85.00</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/detalleProducto.js}"></script>
+</body>
+
+</html>

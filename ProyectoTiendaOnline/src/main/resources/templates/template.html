@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="head">
+
+	</div>
+
+	<header class="container-fluid bg-dark text-light" th:fragment="header">
+		<h1 style="margin: 0;"></h1>
+	</header>
+
+	<nav th:fragment="menu" class="navbar navbar-expand-md bg-dark mb-3" data-bs-theme="dark">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+				aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="menu">
+				
+				<ul class="navbar-nav me-auto mb-2 mb-md-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" th:href="@{/}"><img height="40" width="50" th:src="@{/imagen/logo.png}" ></a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link active"th:href="@{/usuario/ordenes}" > Ordenes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active btn btn-danger text-white "  th:href="@{/logout}" > Cerrar Sesion</a>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+
+	<footer class="container-fluid bg-dark text-light mt-3 p-4 navbar navbar-fixed-bottom" th:fragment="footer">
+		 Derechos reservados &copy;2023 
+	</footer>
+
+</body>
+
+</html>
